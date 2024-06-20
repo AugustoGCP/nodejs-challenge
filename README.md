@@ -17,3 +17,58 @@ the main server file.
 https://github.com/sebasworkana/nodejs-challenge.git and in your personal repository (forked repository) Create a new branch from master with you name and last name, and send a PR to this repo (master branch).
  
 11. Finally give access to the repo to sebasworkana user in github.
+
+
+Variáveis de Ambiente
+As seguintes variáveis de ambiente precisam ser definidas para que a aplicação funcione corretamente:
+
+PORT: A porta na qual a aplicação irá escutar dentro do contêiner.
+DATABASE: O caminho para o arquivo do banco de dados SQLite.
+SECRET_KEY: Uma chave secreta usada pela aplicação para fins de segurança.
+TOKEN: Um token de acesso necessário para a aplicação.
+Passos para Rodar a Aplicação
+
+Executar o Contêiner Docker
+
+Use o comando abaixo para iniciar o contêiner, passando as variáveis de ambiente necessárias e mapeando as portas corretamente:
+
+docker run -d -p 5000:9000 \
+   -e PORT=9000 \
+   -e DATABASE=/app/prisma/dev.db \
+   -e SECRET_KEY='Workana' \
+   -e TOKEN=seu_token_de_acesso \
+   nodejs-challange
+
+.
+├── Dockerfile
+├── .dockerignore
+├── .env
+├── .gitignore
+├── jest.config.js
+├── node_modules 
+├── prisma 
+│   ├── migrations
+│   ├── dev.db
+│   └── schema.prisma
+├── src
+│   ├── database
+│   ├── dist
+│   ├── helpers
+│   ├── htts
+│   │   ├── controllers
+│   │   │   ├── FactoryController
+│   │   │   └── ProductControllers
+│   │   ├── middlewares
+│   │   └── routes
+│   ├── tests
+│   └── ...
+└── README.md
+
+Dockerfile: Contém as instruções para construir a imagem Docker.
+prisma: Diretório contém arquivos de criação de tabelas e conexão com banco de dados.
+src: Diretório que contém o código da aplicação.
+    database: Arquivo de conexão com banco de dados e models da aplicação.
+    dist: Arquivos de inicialização da aplicação.
+    helpers: Possui arquivos de ajuda.
+    https: Possui arquivos que tratam as requisições HTTP, como Rotas, Middlewares e Controllers.
+    test: Possui os testes da aplicação
